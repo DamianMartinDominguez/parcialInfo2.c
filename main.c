@@ -51,51 +51,72 @@ struct datos d;
 struct pila *l;
 }pila_t;
 
-void setPila(struct pila_t);
+//void setPila(struct pila_t); esto es lo que yo puse mal
+void crearPila (struct pila **l);
 
 int main()
  {
+  //void setpila(&p); esto es lo que yo puse mal
+  crearPila(&p);
  
   struct pila *pila= NULL, *aux= NULL;
-  void setpila(&p);
  
  
-  aux=(struct pila_t)malloc(sizeof(struct pila_t));
  
-  if(aux==NULL)
+  //aux=(struct pila_t)malloc(sizeof(struct pila_t));esto es lo que yo puse mal
+ 
+ if((pf=fopen("activos.dat","wb"))==NULL)
+        {
+            printf("no se puede abrir el archivo");
+            return ;
+        }
+ 
+  // if(aux==NULL)
+  // {
+  // printf("\n no hay memoria disponible \n");
+  // return 0;
+  // }
+  // setPila(&pila);
+  // while(pila)
+ while(p)
   {
-  printf("\n no hay memoria disponible \n");
-  return 0;
-}
-  setPila(&pila);
-  while(pila)
-  {
-  printf("\n%d %s %d %d\n",pila->id,pila->n,pila->)tipo,pila->b);
-  aux=pila;
-  pila=pila->1;
-  free(aux);
+  //printf("\n%d %s %d %d\n",pila->id,pila->n,pila->)tipo,pila->b);
+  //aux=pila;
+  //pila=pila->1;
+  //free(aux);
+       aux=p;
+       fwrite(&p,sizeof(struct datos),1,pf);
+       p=p->l;
+       free(aux);
 }
  
-return 0;
+//return 0;
+  fclose(pf);
 }
 
 
-void setPila(struct pila_t)
+//void setPila(struct pila_t)
+void crearPila (struct pila **l)
 {
-struct datos pl;
-struct pila *aux;
-FILE *fp;
-if((fp=fopen("paciente.dat","rb"))==NULL)
+//struct datos pl;
+//struct pila *aux;
+ struct pila *aux;
+ struct datos bf;
+ FILE *fp;
+ 
+if((fp=fopen("paciente.dat","wb"))==NULL)
 {
 printf("\n error en la lectura \n");
   return 0;
 }
-fread(&pl,sizeof(datos_t),1,fp);
-while(!feof(fp))
+ 
+ 
+//fread(&pl,sizeof(datos_t),1,fp);
+while(p)
 {
-if(pl.b!=0)
-{
-if((pl.tipo & 0x10)==0x00) // busco bit 4 en cero 0001 0000
+//if(pl.b!=0)
+//{
+//if((pl.tipo & 0x10)==0x00) // busco bit 4 en cero 0001 0000 /////////////////////////
 {
 aux=(struct pila*) malloc(sizeof(struct pila));
 if(aux)
