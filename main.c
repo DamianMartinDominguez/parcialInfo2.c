@@ -117,19 +117,46 @@ while(p)
 //if(pl.b!=0)
 //{
 //if((pl.tipo & 0x10)==0x00) // busco bit 4 en cero 0001 0000 /////////////////////////
-{
-aux=(struct pila*) malloc(sizeof(struct pila));
-if(aux)
-{
+//{
+//aux=(struct pila*) malloc(sizeof(struct pila));
+//if(aux)
+//{
 aux= pila;
-pila= pila->l;
-pila=aux;
+ //pila= pila->l;
+ fwrite(&p,sizeof(struct datos),1,pf);
+ p=p->l;
+ free(aux);
+//pila=aux;
 }
-     
-}
-}
-}
+fclose(aux);     
 
 
+}
+
+void crearPila (struct pila **l)
+{
+    struct pila *aux;
+    struct datos bf;
+    FILE *fp;
+
+    if((fp=fopen("clientes.dat","rb"))==NULL)
+        {
+            printf("no se puede abrir el archivo");
+            return ;
+        }
+
+    fread(&bf,sizeof(struct datos),1,fp);
+    while(!feof(fp))
+    {
+        if(bf.b!=0 && !(bf.tipo & 0x10))
+        {
+            aux=(struct pila *) malloc (sizeof(struct pila));
+            aux->d=bf;
+            aux->l=p;
+            p=aux;
+        }
+    }
+    fclose(fp);
+}
 
 //fin de parcial
